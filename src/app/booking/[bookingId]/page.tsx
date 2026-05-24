@@ -156,7 +156,9 @@ export default async function BookingConfirmationPage({
               />
               <div>
                 <p className="font-bold">Local booking created</p>
-                <p className="text-sm text-stone">Stored in PostgreSQL CRM data.</p>
+                <p className="text-sm text-stone">
+                  Stored in PostgreSQL CRM data.
+                </p>
               </div>
             </div>
             <div className="mt-6 grid gap-4">
