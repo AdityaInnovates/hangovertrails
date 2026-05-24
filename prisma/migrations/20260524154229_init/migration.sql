@@ -1,20 +1,25 @@
+-- CreateSchema
+CREATE SCHEMA IF NOT EXISTS "public";
+
 -- CreateTable
 CREATE TABLE "User" (
-    "id" TEXT NOT NULL PRIMARY KEY,
+    "id" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "passwordHash" TEXT NOT NULL,
     "role" TEXT NOT NULL DEFAULT 'ADMIN',
     "sessionVersion" INTEGER NOT NULL DEFAULT 1,
-    "lastLoginAt" DATETIME,
+    "lastLoginAt" TIMESTAMP(3),
     "lastLoginIp" TEXT,
-    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" DATETIME NOT NULL
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "Trip" (
-    "id" TEXT NOT NULL PRIMARY KEY,
+    "id" TEXT NOT NULL,
     "tripCode" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "slug" TEXT NOT NULL,
@@ -32,13 +37,15 @@ CREATE TABLE "Trip" (
     "heroImageUrl" TEXT NOT NULL,
     "cardImageUrl" TEXT NOT NULL,
     "galleryImages" JSONB NOT NULL,
-    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" DATETIME NOT NULL
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Trip_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "ItineraryDay" (
-    "id" TEXT NOT NULL PRIMARY KEY,
+    "id" TEXT NOT NULL,
     "tripId" TEXT NOT NULL,
     "dayNumber" INTEGER NOT NULL,
     "title" TEXT NOT NULL,
@@ -49,30 +56,32 @@ CREATE TABLE "ItineraryDay" (
     "stayProperties" JSONB NOT NULL,
     "imageUrl" TEXT NOT NULL,
     "notes" TEXT,
-    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" DATETIME NOT NULL,
-    CONSTRAINT "ItineraryDay_tripId_fkey" FOREIGN KEY ("tripId") REFERENCES "Trip" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "ItineraryDay_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "BookingGroup" (
-    "id" TEXT NOT NULL PRIMARY KEY,
+    "id" TEXT NOT NULL,
     "groupBookingCode" TEXT NOT NULL,
     "tripId" TEXT NOT NULL,
-    "startDate" DATETIME NOT NULL,
-    "endDate" DATETIME NOT NULL,
+    "startDate" TIMESTAMP(3) NOT NULL,
+    "endDate" TIMESTAMP(3) NOT NULL,
     "groupSize" INTEGER NOT NULL,
     "status" TEXT NOT NULL DEFAULT 'OPEN',
-    "expiresAt" DATETIME,
-    "closedAt" DATETIME,
-    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" DATETIME NOT NULL,
-    CONSTRAINT "BookingGroup_tripId_fkey" FOREIGN KEY ("tripId") REFERENCES "Trip" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+    "expiresAt" TIMESTAMP(3),
+    "closedAt" TIMESTAMP(3),
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "BookingGroup_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "Booking" (
-    "id" TEXT NOT NULL PRIMARY KEY,
+    "id" TEXT NOT NULL,
     "bookingCode" TEXT NOT NULL,
     "groupId" TEXT,
     "tripId" TEXT NOT NULL,
@@ -83,7 +92,7 @@ CREATE TABLE "Booking" (
     "phone" TEXT NOT NULL,
     "address" TEXT NOT NULL,
     "pin" TEXT NOT NULL,
-    "dob" DATETIME NOT NULL,
+    "dob" TIMESTAMP(3) NOT NULL,
     "gender" TEXT NOT NULL,
     "emergencyContact" TEXT,
     "consentGiven" BOOLEAN NOT NULL DEFAULT false,
@@ -93,55 +102,57 @@ CREATE TABLE "Booking" (
     "aadhaarFileSize" INTEGER NOT NULL,
     "bookingType" TEXT NOT NULL,
     "peopleCount" INTEGER NOT NULL,
-    "startDate" DATETIME NOT NULL,
-    "endDate" DATETIME NOT NULL,
+    "startDate" TIMESTAMP(3) NOT NULL,
+    "endDate" TIMESTAMP(3) NOT NULL,
     "bookingAmountCents" INTEGER NOT NULL,
     "bookingStatus" TEXT NOT NULL DEFAULT 'PENDING',
     "paymentStatus" TEXT NOT NULL DEFAULT 'PENDING',
-    "cancelledAt" DATETIME,
+    "cancelledAt" TIMESTAMP(3),
     "cancellationReason" TEXT,
     "refundAmountCents" INTEGER,
     "refundStatus" TEXT,
-    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" DATETIME NOT NULL,
-    CONSTRAINT "Booking_groupId_fkey" FOREIGN KEY ("groupId") REFERENCES "BookingGroup" ("id") ON DELETE SET NULL ON UPDATE CASCADE,
-    CONSTRAINT "Booking_tripId_fkey" FOREIGN KEY ("tripId") REFERENCES "Trip" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Booking_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "Payment" (
-    "id" TEXT NOT NULL PRIMARY KEY,
+    "id" TEXT NOT NULL,
     "bookingId" TEXT NOT NULL,
     "installmentNumber" INTEGER NOT NULL,
-    "dueDate" DATETIME NOT NULL,
-    "paidAt" DATETIME,
+    "dueDate" TIMESTAMP(3) NOT NULL,
+    "paidAt" TIMESTAMP(3),
     "simulatedReference" TEXT,
     "paidAmountCents" INTEGER NOT NULL DEFAULT 0,
     "dueAmountCents" INTEGER NOT NULL,
     "status" TEXT NOT NULL DEFAULT 'PENDING',
-    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" DATETIME NOT NULL,
-    CONSTRAINT "Payment_bookingId_fkey" FOREIGN KEY ("bookingId") REFERENCES "Booking" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Payment_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "Expense" (
-    "id" TEXT NOT NULL PRIMARY KEY,
+    "id" TEXT NOT NULL,
     "tripId" TEXT NOT NULL,
     "category" TEXT NOT NULL,
     "amountCents" INTEGER NOT NULL,
     "vendor" TEXT,
     "reference" TEXT,
     "notes" TEXT,
-    "expenseDate" DATETIME NOT NULL,
-    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" DATETIME NOT NULL,
-    CONSTRAINT "Expense_tripId_fkey" FOREIGN KEY ("tripId") REFERENCES "Trip" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+    "expenseDate" TIMESTAMP(3) NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Expense_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "AuditLog" (
-    "id" TEXT NOT NULL PRIMARY KEY,
+    "id" TEXT NOT NULL,
     "actorId" TEXT,
     "actorEmail" TEXT,
     "action" TEXT NOT NULL,
@@ -149,8 +160,9 @@ CREATE TABLE "AuditLog" (
     "entityId" TEXT,
     "metadata" JSONB,
     "ip" TEXT,
-    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT "AuditLog_actorId_fkey" FOREIGN KEY ("actorId") REFERENCES "User" ("id") ON DELETE SET NULL ON UPDATE CASCADE
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "AuditLog_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
@@ -233,3 +245,25 @@ CREATE INDEX "AuditLog_entityType_idx" ON "AuditLog"("entityType");
 
 -- CreateIndex
 CREATE INDEX "AuditLog_createdAt_idx" ON "AuditLog"("createdAt");
+
+-- AddForeignKey
+ALTER TABLE "ItineraryDay" ADD CONSTRAINT "ItineraryDay_tripId_fkey" FOREIGN KEY ("tripId") REFERENCES "Trip"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "BookingGroup" ADD CONSTRAINT "BookingGroup_tripId_fkey" FOREIGN KEY ("tripId") REFERENCES "Trip"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Booking" ADD CONSTRAINT "Booking_groupId_fkey" FOREIGN KEY ("groupId") REFERENCES "BookingGroup"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Booking" ADD CONSTRAINT "Booking_tripId_fkey" FOREIGN KEY ("tripId") REFERENCES "Trip"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Payment" ADD CONSTRAINT "Payment_bookingId_fkey" FOREIGN KEY ("bookingId") REFERENCES "Booking"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Expense" ADD CONSTRAINT "Expense_tripId_fkey" FOREIGN KEY ("tripId") REFERENCES "Trip"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "AuditLog" ADD CONSTRAINT "AuditLog_actorId_fkey" FOREIGN KEY ("actorId") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+

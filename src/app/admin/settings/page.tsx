@@ -17,7 +17,7 @@ export default async function SettingsPage() {
     <AdminShell
       active="/admin/settings"
       title="Local Settings"
-      subtitle="Environment and security posture for the SQLite V1 build."
+      subtitle="Environment and security posture for the PostgreSQL V1 build."
     >
       <section className="grid gap-4 md:grid-cols-2">
         <article className="rounded-3xl border border-line bg-surface p-6 shadow-soft">
