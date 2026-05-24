@@ -142,7 +142,8 @@ export default async function AdminPage() {
           <div>
             <h2 className="text-2xl font-bold">Recent Bookings</h2>
             <p className="mt-1 text-sm text-stone">
-              The newest travelers waiting for review, payment follow-up, or trip preparation.
+              The newest travelers waiting for review, payment follow-up, or
+              trip preparation.
             </p>
           </div>
         </div>

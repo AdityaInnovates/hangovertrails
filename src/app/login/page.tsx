@@ -68,7 +68,9 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
                 <ShieldCheck className="size-5" aria-hidden="true" />
               </span>
               <div>
-                <h2 className="text-2xl font-bold">Sign in to your workspace</h2>
+                <h2 className="text-2xl font-bold">
+                  Sign in to your workspace
+                </h2>
                 <p className="mt-1 text-sm leading-6 text-stone">
                   Use your team credentials to continue managing trips.
                 </p>

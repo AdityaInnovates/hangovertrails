@@ -24,7 +24,8 @@ const formatCurrency = (amountCents: number) =>
 const bookingSteps = [
   {
     title: "Choose a Package",
-    description: "Find the route, pace, and landscape that match the trip you have in mind.",
+    description:
+      "Find the route, pace, and landscape that match the trip you have in mind.",
   },
   {
     title: "Submit Traveler Details",
@@ -33,8 +34,7 @@ const bookingSteps = [
   },
   {
     title: "Confirm Installment",
-    description:
-      "Reserve your seat with a clear deposit and balance schedule.",
+    description: "Reserve your seat with a clear deposit and balance schedule.",
   },
   {
     title: "Track Your Itinerary",
@@ -153,7 +153,8 @@ export default async function Home() {
                 <div>
                   <p className="text-sm font-bold">Four curated destinations</p>
                   <p className="text-xs text-stone">
-                    Carefully selected routes for first-time and returning travelers.
+                    Carefully selected routes for first-time and returning
+                    travelers.
                   </p>
                 </div>
               </div>
