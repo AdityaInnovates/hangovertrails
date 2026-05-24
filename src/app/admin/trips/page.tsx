@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { AdminShell } from "@/components/admin/admin-shell";
+import { TripForm } from "@/components/admin/trip-form";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { getCurrentAdmin } from "@/lib/auth";
 import { prisma } from "@/lib/db";
@@ -26,7 +27,8 @@ export default async function TripsPage() {
       title="Trips"
       subtitle="Keep every listed journey accurate, bookable, and ready for the people choosing it."
     >
-      <section className="grid gap-5 xl:grid-cols-2">
+      <TripForm />
+      <section className="mt-6 grid gap-5 xl:grid-cols-2">
         {trips.map((trip) => (
           <article
             key={trip.id}
