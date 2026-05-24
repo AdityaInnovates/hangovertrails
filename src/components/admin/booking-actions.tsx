@@ -31,7 +31,7 @@ export function BookingActions({
       return;
     }
 
-    setMessage("Updated");
+    setMessage("Done");
     router.refresh();
   }
 
@@ -62,7 +62,7 @@ export function BookingActions({
           loading={loading?.includes("cancel")}
           onClick={() =>
             post(`/api/admin/bookings/${bookingId}/cancel`, {
-              reason: "Admin cancelled from CRM",
+              reason: "Cancelled by the team",
               refundAmountCents: 0,
             })
           }

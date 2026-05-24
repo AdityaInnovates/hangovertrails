@@ -43,9 +43,9 @@ export default async function BookPage() {
               Reserve Your Arunachal Expedition
             </h1>
             <p className="mt-5 text-base leading-8 text-stone">
-              Submit traveler details, Aadhaar document, trip dates, and
-              simulated installment information. The CRM receives live booking,
-              payment, and audit records.
+              Tell us who is traveling, choose your dates, and upload the
+              required ID document. We will keep the booking details organized
+              so your trip can move from plan to departure smoothly.
             </p>
           </div>
         </aside>

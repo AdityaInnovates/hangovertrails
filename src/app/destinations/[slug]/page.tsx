@@ -81,8 +81,8 @@ export default async function DestinationDetailPage({
               Available {destination.name} Tours
             </h2>
             <p className="mt-5 text-base leading-8 text-stone">
-              Each package carries itinerary, capacity, pricing, and operational
-              data for the CRM.
+              Compare the available routes by duration, capacity, and starting
+              price, then open the day-wise plan that feels right.
             </p>
           </div>
           <div className="grid gap-5">

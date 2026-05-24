@@ -16,8 +16,8 @@ export default async function SettingsPage() {
   return (
     <AdminShell
       active="/admin/settings"
-      title="Local Settings"
-      subtitle="Environment and security posture for the PostgreSQL V1 build."
+      title="Workspace Settings"
+      subtitle="Check the account, upload, and sign-in rules that keep the team workspace controlled."
     >
       <section className="grid gap-4 md:grid-cols-2">
         <article className="rounded-3xl border border-line bg-surface p-6 shadow-soft">

@@ -32,7 +32,7 @@ export function ExpenseForm({ trips }: { trips: TripOption[] }) {
       return;
     }
 
-    setMessage("Expense recorded");
+    setMessage("Cost added");
     router.refresh();
   }
 
@@ -51,7 +51,7 @@ export function ExpenseForm({ trips }: { trips: TripOption[] }) {
       </select>
       <input
         name="category"
-        placeholder="Category"
+        placeholder="Cost type"
         className="rounded-2xl border border-line bg-background px-4 py-3 text-sm"
         required
       />
@@ -60,16 +60,16 @@ export function ExpenseForm({ trips }: { trips: TripOption[] }) {
         type="number"
         min="1"
         step="0.01"
-        placeholder="Amount"
+        placeholder="Amount spent"
         className="rounded-2xl border border-line bg-background px-4 py-3 text-sm"
         required
       />
       <Button type="submit" loading={loading}>
-        Add expense
+        Add cost
       </Button>
       <input
         name="notes"
-        placeholder="Notes"
+        placeholder="Helpful note for the team"
         className="rounded-2xl border border-line bg-background px-4 py-3 text-sm md:col-span-4"
       />
       {message ? (

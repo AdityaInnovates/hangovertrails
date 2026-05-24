@@ -62,8 +62,8 @@ export default async function AdminBookingsPage({
   return (
     <AdminShell
       active="/admin/bookings"
-      title="Booking Management"
-      subtitle="Search travelers, review payment state, access protected Aadhaar documents, and manage cancellation/payment actions."
+      title="Bookings"
+      subtitle="Find a traveler quickly, check what is paid, open required documents, and take the next booking action."
     >
       <section className="rounded-3xl border border-line bg-surface p-5 shadow-soft">
         <form className="grid gap-3 md:grid-cols-5">

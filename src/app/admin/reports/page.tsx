@@ -20,7 +20,7 @@ export default async function ReportsPage() {
     <AdminShell
       active="/admin/reports"
       title="Finance Reports"
-      subtitle="Revenue, expenses, profit, and exportable booking data for local V1 operations."
+      subtitle="Review money in, money out, and booking totals before making pricing or planning decisions."
     >
       <div className="grid gap-4 md:grid-cols-3">
         <article className="rounded-3xl border border-line bg-surface p-6 shadow-soft">

@@ -224,7 +224,7 @@ export function BookingForm({ trips }: { trips: TripOption[] }) {
             </span>
             <span>
               {formatCurrency(totalAmount)} total ·{" "}
-              {formatCurrency(depositAmount)} simulated deposit
+              {formatCurrency(depositAmount)} deposit today
             </span>
           </div>
         )}
@@ -315,7 +315,7 @@ export function BookingForm({ trips }: { trips: TripOption[] }) {
             className="text-sm"
           />
           <span className="text-xs font-medium text-stone">
-            PDF, JPG, or PNG. Maximum 5 MB. Stored locally for V1.
+            PDF, JPG, or PNG. Maximum 5 MB. Used only to prepare your booking.
           </span>
           {file ? <StatusBadge tone="success">{file.name}</StatusBadge> : null}
         </label>
@@ -325,8 +325,8 @@ export function BookingForm({ trips }: { trips: TripOption[] }) {
             className="mt-1 size-4"
             {...form.register("consentGiven", { required: true })}
           />
-          I confirm the traveler details are accurate and consent to local V1
-          document storage for booking operations.
+          I confirm the traveler details are accurate and consent to secure
+          document handling for this booking.
         </label>
       </section>
 

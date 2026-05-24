@@ -24,22 +24,22 @@ const formatCurrency = (amountCents: number) =>
 const bookingSteps = [
   {
     title: "Choose a Package",
-    description: "Pick a curated route across Tawang, Ziro, Mechuka, or Anini.",
+    description: "Find the route, pace, and landscape that match the trip you have in mind.",
   },
   {
     title: "Submit Traveler Details",
     description:
-      "Add solo or group traveler information and upload Aadhaar securely.",
+      "Share the essentials once so your stay, transport, and documents are ready before departure.",
   },
   {
     title: "Confirm Installment",
     description:
-      "Use the local payment simulation to reserve your selected journey.",
+      "Reserve your seat with a clear deposit and balance schedule.",
   },
   {
     title: "Track Your Itinerary",
     description:
-      "View confirmation, payments, and day-wise plans from one place.",
+      "Keep your confirmation, dates, and day-wise plan easy to revisit.",
   },
 ];
 
@@ -129,9 +129,9 @@ export default async function Home() {
               Unforgettable Arunachal Journeys, Planned End to End
             </h1>
             <p className="mt-6 max-w-2xl text-base leading-8 text-white/82 sm:text-lg">
-              Cinematic routes through Tawang, Ziro, Mechuka, and Anini with a
-              CRM-powered booking flow for documents, payments, stays, and
-              itinerary planning.
+              Thoughtfully paced routes through Tawang, Ziro, Mechuka, and
+              Anini, with bookings, stays, transport, and documents handled
+              before you set out.
             </p>
           </div>
 
@@ -153,7 +153,7 @@ export default async function Home() {
                 <div>
                   <p className="text-sm font-bold">Four curated destinations</p>
                   <p className="text-xs text-stone">
-                    Only approved Arunachal routes for V1 operations.
+                    Carefully selected routes for first-time and returning travelers.
                   </p>
                 </div>
               </div>
@@ -197,11 +197,12 @@ export default async function Home() {
         <div className="mx-auto max-w-3xl text-center">
           <SectionLabel>Base Adventures</SectionLabel>
           <h2 className="mt-6 font-display text-5xl font-semibold leading-tight text-foreground sm:text-6xl">
-            Four Routes, One Operationally Clean Experience
+            Four Ways to Meet Arunachal Closely
           </h2>
           <p className="mt-5 text-base leading-8 text-stone">
-            Each destination has a visual public journey and a structured
-            backend workflow for stays, payments, expenses, and planning.
+            Choose snow-line monasteries, music-filled valleys, remote river
+            roads, or highland wilderness. Each journey is planned with the
+            practical details already in view.
           </p>
         </div>
 
@@ -249,8 +250,8 @@ export default async function Home() {
                 Discover the Best Arunachal Adventures for Every Traveler
               </h2>
               <p className="mt-5 text-base leading-8 text-stone">
-                Browse packages that already understand destination limits,
-                group operations, and itinerary structure.
+                Compare journeys by pace, price, duration, and destination so
+                you can choose with confidence.
               </p>
             </div>
             <div className="grid gap-5 sm:grid-cols-2">
@@ -311,7 +312,7 @@ export default async function Home() {
         <div className="mx-auto max-w-3xl text-center">
           <SectionLabel>Captured Moments</SectionLabel>
           <h2 className="mt-6 font-display text-5xl font-semibold leading-tight sm:text-6xl">
-            The Frontend Sells Aspiration. The Backend Manages Reality.
+            Trips That Feel Clear Before They Begin
           </h2>
         </div>
         <div className="mt-14 grid gap-5 md:grid-cols-3">
@@ -344,8 +345,8 @@ export default async function Home() {
                 Book Your Tour in Four Clean Steps
               </h2>
               <p className="mt-5 text-base leading-8 text-white/70">
-                The local V1 simulates payments and email while still storing
-                the real operational records needed by the CRM.
+                From the first route choice to the final confirmation, every
+                step is kept simple, transparent, and easy to return to.
               </p>
             </div>
             <div className="grid gap-4">
@@ -385,8 +386,8 @@ export default async function Home() {
               Experience Arunachal With a Platform Built for the Whole Journey
             </h2>
             <p className="mt-5 text-base leading-8 text-white/76">
-              Browse cinematic routes, submit bookings, and let the CRM track
-              the operational details behind the scenes.
+              Browse the routes, choose your dates, and reserve a place on an
+              Arunachal journey that is prepared before you arrive.
             </p>
             <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
               <Link
@@ -418,16 +419,16 @@ export default async function Home() {
             ArunachalRise
           </div>
           <p className="mt-4 max-w-md leading-7">
-            Premium tourism storytelling with a local-first CRM for trip
-            operations, finance, itinerary planning, and booking management.
+            Guided Arunachal travel with clear itineraries, responsible route
+            planning, and booking support from inquiry to departure.
           </p>
         </div>
         <div>
           <p className="font-bold text-foreground">Operations</p>
           <div className="mt-4 grid gap-3">
             <span className="inline-flex items-center gap-2">
-              <CalendarDays className="size-4" aria-hidden="true" /> Local
-              booking workflow
+              <CalendarDays className="size-4" aria-hidden="true" /> Date-led
+              trip planning
             </span>
             <span className="inline-flex items-center gap-2">
               <Users className="size-4" aria-hidden="true" /> Group travel ready
@@ -437,7 +438,7 @@ export default async function Home() {
         <div>
           <p className="font-bold text-foreground">Contact</p>
           <div className="mt-4 grid gap-3">
-            <span>hello@arunachalrise.local</span>
+            <span>hello@arunachalrise.in</span>
             <span className="inline-flex items-center gap-2">
               <MapPin className="size-4" aria-hidden="true" /> Arunachal
               Pradesh, India

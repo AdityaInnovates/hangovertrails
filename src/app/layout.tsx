@@ -15,11 +15,11 @@ const cormorant = Cormorant_Garamond({
 
 export const metadata: Metadata = {
   title: {
-    default: "Arunachal Expedition CRM & Tourism Platform",
+    default: "ArunachalRise | Curated Arunachal Tours",
     template: "%s | Arunachal Expeditions",
   },
   description:
-    "A cinematic Arunachal tourism booking experience paired with a local-first expedition CRM.",
+    "Plan and book guided Arunachal journeys across Tawang, Ziro, Mechuka, and Anini.",
   robots: {
     index: true,
     follow: true,

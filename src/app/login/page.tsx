@@ -5,8 +5,8 @@ import { LoginForm } from "@/components/auth/login-form";
 import { SectionLabel } from "@/components/ui/section-label";
 
 export const metadata = {
-  title: "Admin Login",
-  description: "Secure admin login for the Arunachal Expedition CRM.",
+  title: "Team Login",
+  description: "Sign in to manage ArunachalRise trips and bookings.",
   robots: {
     index: false,
     follow: false,
@@ -51,15 +51,14 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
         <section className="grid flex-1 items-center gap-10 py-16 lg:grid-cols-[1fr_460px]">
           <div className="max-w-3xl">
             <SectionLabel className="border-white/25 bg-white/12 text-white shadow-none">
-              Admin CRM
+              Team Access
             </SectionLabel>
             <h1 className="mt-7 font-display text-6xl font-semibold leading-tight sm:text-8xl">
-              Operations for Every Expedition Detail
+              Keep Every Trip Moving Smoothly
             </h1>
             <p className="mt-6 max-w-2xl text-base leading-8 text-white/76">
-              Manage trips, bookings, payments, expenses, stays, and itinerary
-              planning from the same premium platform travelers see on the
-              public site.
+              Review bookings, follow up on payments, prepare documents, and
+              keep each itinerary ready before travelers arrive.
             </p>
           </div>
 
@@ -69,9 +68,9 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
                 <ShieldCheck className="size-5" aria-hidden="true" />
               </span>
               <div>
-                <h2 className="text-2xl font-bold">Sign in to CRM</h2>
+                <h2 className="text-2xl font-bold">Sign in to your workspace</h2>
                 <p className="mt-1 text-sm leading-6 text-stone">
-                  Local V1 uses seeded admin credentials for development.
+                  Use your team credentials to continue managing trips.
                 </p>
               </div>
             </div>

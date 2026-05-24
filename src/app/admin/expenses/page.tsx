@@ -29,8 +29,8 @@ export default async function ExpensesPage() {
   return (
     <AdminShell
       active="/admin/expenses"
-      title="Expense Tracker"
-      subtitle="Record local operating costs and keep profit reporting current."
+      title="Expenses"
+      subtitle="Log trip costs as they happen so the team always knows what each journey is really earning."
     >
       <section className="rounded-3xl border border-line bg-surface p-5 shadow-soft">
         <ExpenseForm

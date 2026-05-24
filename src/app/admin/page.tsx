@@ -85,7 +85,7 @@ export default async function AdminPage() {
   return (
     <AdminShell
       title={`Welcome, ${admin.name}`}
-      subtitle="Live operational visibility across bookings, revenue, payments, expenses, and trip capacity."
+      subtitle="Start with the numbers that need attention today: bookings, payments, expenses, and trip capacity."
     >
       <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         {stats.map((stat) => {
@@ -142,7 +142,7 @@ export default async function AdminPage() {
           <div>
             <h2 className="text-2xl font-bold">Recent Bookings</h2>
             <p className="mt-1 text-sm text-stone">
-              Newest traveler records entering the CRM.
+              The newest travelers waiting for review, payment follow-up, or trip preparation.
             </p>
           </div>
         </div>

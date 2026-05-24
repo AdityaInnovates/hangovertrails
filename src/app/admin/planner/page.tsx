@@ -24,7 +24,7 @@ export default async function PlannerPage() {
     <AdminShell
       active="/admin/planner"
       title="Trip Planner"
-      subtitle="Location-specific planning board with payment status colors for daily operations."
+      subtitle="See upcoming journeys by destination and spot which bookings need payment or cancellation attention."
     >
       <section className="grid gap-4">
         <div className="flex flex-wrap gap-3 rounded-3xl border border-line bg-surface p-5 shadow-soft">

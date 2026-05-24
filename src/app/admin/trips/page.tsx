@@ -23,8 +23,8 @@ export default async function TripsPage() {
   return (
     <AdminShell
       active="/admin/trips"
-      title="Trip Management"
-      subtitle="Review curated packages, capacity, costs, activity state, and itinerary readiness."
+      title="Trips"
+      subtitle="Keep every listed journey accurate, bookable, and ready for the people choosing it."
     >
       <section className="grid gap-5 xl:grid-cols-2">
         {trips.map((trip) => (
@@ -53,7 +53,7 @@ export default async function TripsPage() {
               href={`/tours/${trip.slug}`}
               className="mt-6 inline-flex rounded-full bg-forest px-5 py-3 text-sm font-bold text-white"
             >
-              Preview public tour
+              View traveler page
             </Link>
           </article>
         ))}

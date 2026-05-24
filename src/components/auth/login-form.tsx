@@ -16,8 +16,8 @@ type LoginFormProps = {
 
 export function LoginForm({ nextPath = "/admin" }: LoginFormProps) {
   const router = useRouter();
-  const [email, setEmail] = useState("admin@arunachaltourism.local");
-  const [password, setPassword] = useState("admin1234");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -48,11 +48,12 @@ export function LoginForm({ nextPath = "/admin" }: LoginFormProps) {
   return (
     <form onSubmit={handleSubmit} className="grid gap-5" noValidate>
       <Input
-        label="Admin email"
+        label="Work email"
         name="email"
         type="email"
         value={email}
         onChange={(event) => setEmail(event.target.value)}
+        placeholder="you@company.com"
         autoComplete="email"
         required
       />
@@ -63,6 +64,7 @@ export function LoginForm({ nextPath = "/admin" }: LoginFormProps) {
           type={showPassword ? "text" : "password"}
           value={password}
           onChange={(event) => setPassword(event.target.value)}
+          placeholder="Enter your password"
           autoComplete="current-password"
           required
         />
@@ -93,7 +95,7 @@ export function LoginForm({ nextPath = "/admin" }: LoginFormProps) {
         {loading ? (
           <Loader2 className="size-4 animate-spin" aria-hidden="true" />
         ) : null}
-        {loading ? "Signing in" : "Enter CRM"}
+        {loading ? "Signing in" : "Open workspace"}
       </Button>
     </form>
   );

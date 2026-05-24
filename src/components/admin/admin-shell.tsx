@@ -75,7 +75,7 @@ export function AdminShell({
         </aside>
         <section className="min-w-0 p-4 sm:p-6 lg:p-10">
           <header className="mb-6 rounded-3xl border border-line bg-surface p-6 shadow-soft">
-            <p className="text-sm font-bold uppercase text-stone">Admin CRM</p>
+            <p className="text-sm font-bold uppercase text-stone">Team Workspace</p>
             <h1 className="mt-2 font-display text-5xl font-semibold leading-tight">
               {title}
             </h1>

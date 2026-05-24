@@ -155,9 +155,9 @@ export default async function BookingConfirmationPage({
                 aria-hidden="true"
               />
               <div>
-                <p className="font-bold">Local booking created</p>
+                <p className="font-bold">Your booking is saved</p>
                 <p className="text-sm text-stone">
-                  Stored in PostgreSQL CRM data.
+                  Our team has the details needed to prepare your trip.
                 </p>
               </div>
             </div>
@@ -175,10 +175,11 @@ export default async function BookingConfirmationPage({
               </div>
               <div className="rounded-3xl bg-background p-5">
                 <p className="flex items-center gap-2 text-sm font-bold text-stone">
-                  <Mail className="size-4" /> Email
+                  <Mail className="size-4" /> Confirmation
                 </p>
                 <p className="mt-2 text-sm leading-6 text-stone">
-                  Confirmation email is simulated in the local audit log for V1.
+                  Your confirmation is ready here. Keep this page open or print
+                  the itinerary for easy reference.
                 </p>
               </div>
             </div>

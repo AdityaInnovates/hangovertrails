@@ -34,9 +34,9 @@ export default async function DestinationsPage() {
               </h1>
             </div>
             <p className="max-w-2xl text-base leading-8 text-stone">
-              V1 intentionally supports only Tawang, Ziro, Mechuka, and Anini so
-              itinerary planning, booking validation, and CRM operations stay
-              controlled.
+              Start with the region that calls to you: monastery roads,
+              pine-covered valleys, riverside settlements, or quiet highlands
+              close to the edge of the map.
             </p>
           </div>
         </div>
