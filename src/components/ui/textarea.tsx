@@ -7,12 +7,22 @@ type TextareaProps = ComponentPropsWithoutRef<"textarea"> & {
   helperText?: string;
 };
 
-export function Textarea({ className, label, error, helperText, id, ...props }: TextareaProps) {
+export function Textarea({
+  className,
+  label,
+  error,
+  helperText,
+  id,
+  ...props
+}: TextareaProps) {
   const textareaId = id ?? props.name;
   const descriptionId = textareaId ? `${textareaId}-description` : undefined;
 
   return (
-    <label className="grid gap-2 text-sm font-semibold text-foreground" htmlFor={textareaId}>
+    <label
+      className="grid gap-2 text-sm font-semibold text-foreground"
+      htmlFor={textareaId}
+    >
       {label}
       <textarea
         id={textareaId}
@@ -26,7 +36,13 @@ export function Textarea({ className, label, error, helperText, id, ...props }: 
         {...props}
       />
       {(error || helperText) && (
-        <span id={descriptionId} className={cn("text-xs font-medium", error ? "text-danger" : "text-stone")}>
+        <span
+          id={descriptionId}
+          className={cn(
+            "text-xs font-medium",
+            error ? "text-danger" : "text-stone",
+          )}
+        >
           {error ?? helperText}
         </span>
       )}

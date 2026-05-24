@@ -31,7 +31,13 @@ const trips = [
       image("photo-1464822759023-fed622ff2c3b"),
       image("photo-1470770841072-f978cf4d019e"),
     ],
-    inclusions: ["Boutique stays", "Breakfast and dinner", "Local guide", "Permits", "SUV transfers"],
+    inclusions: [
+      "Boutique stays",
+      "Breakfast and dinner",
+      "Local guide",
+      "Permits",
+      "SUV transfers",
+    ],
     exclusions: ["Flights", "Personal shopping", "Lunch", "Insurance"],
     itinerary: [
       {
@@ -116,7 +122,10 @@ const trips = [
     minBookingDaysInAdvance: 5,
     heroImageUrl: image("photo-1500534314209-a25ddb2bd429"),
     cardImageUrl: image("photo-1500534314209-a25ddb2bd429"),
-    galleryImages: [image("photo-1500534314209-a25ddb2bd429"), image("photo-1447752875215-b2761acb3c5d")],
+    galleryImages: [
+      image("photo-1500534314209-a25ddb2bd429"),
+      image("photo-1447752875215-b2761acb3c5d"),
+    ],
     inclusions: ["Homestays", "Local host", "Permits", "Ground transfers"],
     exclusions: ["Flights", "Alcohol", "Personal expenses"],
     itinerary: [
@@ -158,7 +167,10 @@ const trips = [
     minBookingDaysInAdvance: 10,
     heroImageUrl: image("photo-1501785888041-af3ef285b470"),
     cardImageUrl: image("photo-1501785888041-af3ef285b470"),
-    galleryImages: [image("photo-1501785888041-af3ef285b470"), image("photo-1464822759023-fed622ff2c3b")],
+    galleryImages: [
+      image("photo-1501785888041-af3ef285b470"),
+      image("photo-1464822759023-fed622ff2c3b"),
+    ],
     inclusions: ["Premium homestays", "River picnic", "Guide", "Transfers"],
     exclusions: ["Flights", "Adventure insurance", "Personal expenses"],
     itinerary: [
@@ -189,7 +201,10 @@ const trips = [
     minBookingDaysInAdvance: 14,
     heroImageUrl: image("photo-1447752875215-b2761acb3c5d"),
     cardImageUrl: image("photo-1447752875215-b2761acb3c5d"),
-    galleryImages: [image("photo-1447752875215-b2761acb3c5d"), image("photo-1500530855697-b586d89ba3ee")],
+    galleryImages: [
+      image("photo-1447752875215-b2761acb3c5d"),
+      image("photo-1500530855697-b586d89ba3ee"),
+    ],
     inclusions: ["Remote stays", "Guide", "Permits", "4x4 transfers"],
     exclusions: ["Flights", "Medical evacuation", "Personal gear"],
     itinerary: [
@@ -209,7 +224,10 @@ const trips = [
 ];
 
 async function main() {
-  const passwordHash = await bcrypt.hash(process.env.ADMIN_PASSWORD ?? "admin1234", 12);
+  const passwordHash = await bcrypt.hash(
+    process.env.ADMIN_PASSWORD ?? "admin1234",
+    12,
+  );
 
   const admin = await prisma.user.upsert({
     where: { email: process.env.ADMIN_EMAIL ?? "admin@arunachaltourism.local" },
@@ -404,14 +422,20 @@ async function main() {
         action: "BOOKING_CONFIRMED_SIMULATED_EMAIL",
         entityType: "Booking",
         entityId: groupBooking.id,
-        metadata: { bookingCode: groupBooking.bookingCode, channel: "local-mock" },
+        metadata: {
+          bookingCode: groupBooking.bookingCode,
+          channel: "local-mock",
+        },
       },
       {
         actorEmail: "system",
         action: "BOOKING_CREATED_PENDING_PAYMENT",
         entityType: "Booking",
         entityId: soloBooking.id,
-        metadata: { bookingCode: soloBooking.bookingCode, channel: "local-mock" },
+        metadata: {
+          bookingCode: soloBooking.bookingCode,
+          channel: "local-mock",
+        },
       },
     ],
   });

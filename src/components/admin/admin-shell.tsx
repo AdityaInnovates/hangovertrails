@@ -1,5 +1,14 @@
 import Link from "next/link";
-import { BarChart3, BriefcaseBusiness, CalendarDays, FileText, LayoutDashboard, Mountain, Receipt, Settings } from "lucide-react";
+import {
+  BarChart3,
+  BriefcaseBusiness,
+  CalendarDays,
+  FileText,
+  LayoutDashboard,
+  Mountain,
+  Receipt,
+  Settings,
+} from "lucide-react";
 import { LogoutButton } from "@/components/auth/logout-button";
 import { cn } from "@/lib/utils";
 
@@ -13,7 +22,17 @@ const navItems = [
   { href: "/admin/settings", label: "Settings", icon: Settings },
 ];
 
-export function AdminShell({ children, active = "/admin", title, subtitle }: { children: React.ReactNode; active?: string; title: string; subtitle?: string }) {
+export function AdminShell({
+  children,
+  active = "/admin",
+  title,
+  subtitle,
+}: {
+  children: React.ReactNode;
+  active?: string;
+  title: string;
+  subtitle?: string;
+}) {
   return (
     <main className="min-h-screen bg-background text-foreground">
       <div className="grid min-h-screen lg:grid-cols-[280px_1fr]">
@@ -40,7 +59,8 @@ export function AdminShell({ children, active = "/admin", title, subtitle }: { c
                   href={item.href}
                   className={cn(
                     "inline-flex min-w-fit items-center gap-3 rounded-2xl px-4 py-3 text-sm font-bold text-white/72 transition hover:bg-white/10 hover:text-white",
-                    isActive && "bg-white text-forest-deep hover:bg-white hover:text-forest-deep",
+                    isActive &&
+                      "bg-white text-forest-deep hover:bg-white hover:text-forest-deep",
                   )}
                 >
                   <Icon className="size-4" aria-hidden="true" />
@@ -56,8 +76,14 @@ export function AdminShell({ children, active = "/admin", title, subtitle }: { c
         <section className="min-w-0 p-4 sm:p-6 lg:p-10">
           <header className="mb-6 rounded-3xl border border-line bg-surface p-6 shadow-soft">
             <p className="text-sm font-bold uppercase text-stone">Admin CRM</p>
-            <h1 className="mt-2 font-display text-5xl font-semibold leading-tight">{title}</h1>
-            {subtitle ? <p className="mt-3 max-w-3xl text-sm leading-7 text-stone">{subtitle}</p> : null}
+            <h1 className="mt-2 font-display text-5xl font-semibold leading-tight">
+              {title}
+            </h1>
+            {subtitle ? (
+              <p className="mt-3 max-w-3xl text-sm leading-7 text-stone">
+                {subtitle}
+              </p>
+            ) : null}
           </header>
           {children}
         </section>

@@ -12,7 +12,11 @@ export function LogoutButton() {
   }
 
   return (
-    <button className="rounded-full bg-foreground px-5 py-3 text-sm font-bold text-white" type="button" onClick={handleLogout}>
+    <button
+      className="rounded-full bg-foreground px-5 py-3 text-sm font-bold text-white"
+      type="button"
+      onClick={handleLogout}
+    >
       Logout
     </button>
   );

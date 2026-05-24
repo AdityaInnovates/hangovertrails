@@ -59,7 +59,11 @@ export async function getCurrentAdmin() {
 
   const user = await prisma.user.findUnique({ where: { id: session.userId } });
 
-  if (!user || user.role !== "ADMIN" || user.sessionVersion !== session.sessionVersion) {
+  if (
+    !user ||
+    user.role !== "ADMIN" ||
+    user.sessionVersion !== session.sessionVersion
+  ) {
     return null;
   }
 

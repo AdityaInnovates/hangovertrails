@@ -10,9 +10,22 @@ export async function GET() {
 
   if (response) return response;
 
-  const bookings = await prisma.booking.findMany({ include: { trip: true, payments: true }, orderBy: { createdAt: "desc" } });
+  const bookings = await prisma.booking.findMany({
+    include: { trip: true, payments: true },
+    orderBy: { createdAt: "desc" },
+  });
   const rows = [
-    ["Booking ID", "Traveler", "Email", "Trip", "Location", "Booking Status", "Payment Status", "Amount", "Paid"],
+    [
+      "Booking ID",
+      "Traveler",
+      "Email",
+      "Trip",
+      "Location",
+      "Booking Status",
+      "Payment Status",
+      "Amount",
+      "Paid",
+    ],
     ...bookings.map((booking) => [
       booking.bookingCode,
       `${booking.firstName} ${booking.lastName}`,
@@ -22,7 +35,10 @@ export async function GET() {
       booking.bookingStatus,
       booking.paymentStatus,
       booking.bookingAmountCents / 100,
-      booking.payments.reduce((total, payment) => total + payment.paidAmountCents, 0) / 100,
+      booking.payments.reduce(
+        (total, payment) => total + payment.paidAmountCents,
+        0,
+      ) / 100,
     ]),
   ];
   const csv = rows.map((row) => row.map(csvCell).join(",")).join("\n");
@@ -30,7 +46,8 @@ export async function GET() {
   return new Response(csv, {
     headers: {
       "Content-Type": "text/csv; charset=utf-8",
-      "Content-Disposition": "attachment; filename=arunachal-bookings-export.csv",
+      "Content-Disposition":
+        "attachment; filename=arunachal-bookings-export.csv",
       "Cache-Control": "no-store",
     },
   });

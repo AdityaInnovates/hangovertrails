@@ -18,10 +18,18 @@ export async function GET(_request: Request, context: RouteContext) {
 
   if (!booking) return fail("BOOKING_NOT_FOUND", "Booking was not found.", 404);
 
-  const absolutePath = path.resolve(/*turbopackIgnore: true*/ process.cwd(), booking.aadhaarFilePath);
+  const absolutePath = path.resolve(
+    /*turbopackIgnore: true*/ process.cwd(),
+    booking.aadhaarFilePath,
+  );
   const file = await readFile(absolutePath).catch(() => null);
 
-  if (!file) return fail("AADHAAR_FILE_NOT_FOUND", "The local Aadhaar file could not be found.", 404);
+  if (!file)
+    return fail(
+      "AADHAAR_FILE_NOT_FOUND",
+      "The local Aadhaar file could not be found.",
+      404,
+    );
 
   await prisma.auditLog.create({
     data: {
@@ -30,7 +38,10 @@ export async function GET(_request: Request, context: RouteContext) {
       action: "AADHAAR_ACCESSED",
       entityType: "Booking",
       entityId: id,
-      metadata: { bookingCode: booking.bookingCode, fileName: booking.aadhaarFileName },
+      metadata: {
+        bookingCode: booking.bookingCode,
+        fileName: booking.aadhaarFileName,
+      },
     },
   });
 

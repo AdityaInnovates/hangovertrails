@@ -72,12 +72,27 @@ export function LoginForm({ nextPath = "/admin" }: LoginFormProps) {
           aria-label={showPassword ? "Hide password" : "Show password"}
           onClick={() => setShowPassword((current) => !current)}
         >
-          {showPassword ? <EyeOff className="size-4" aria-hidden="true" /> : <Eye className="size-4" aria-hidden="true" />}
+          {showPassword ? (
+            <EyeOff className="size-4" aria-hidden="true" />
+          ) : (
+            <Eye className="size-4" aria-hidden="true" />
+          )}
         </button>
       </div>
-      {error && <p className="rounded-2xl bg-danger/10 px-4 py-3 text-sm font-semibold text-danger">{error}</p>}
-      <Button type="submit" size="lg" disabled={!email || !password || loading} className="w-full">
-        {loading ? <Loader2 className="size-4 animate-spin" aria-hidden="true" /> : null}
+      {error && (
+        <p className="rounded-2xl bg-danger/10 px-4 py-3 text-sm font-semibold text-danger">
+          {error}
+        </p>
+      )}
+      <Button
+        type="submit"
+        size="lg"
+        disabled={!email || !password || loading}
+        className="w-full"
+      >
+        {loading ? (
+          <Loader2 className="size-4 animate-spin" aria-hidden="true" />
+        ) : null}
         {loading ? "Signing in" : "Enter CRM"}
       </Button>
     </form>

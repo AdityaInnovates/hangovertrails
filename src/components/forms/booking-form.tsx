@@ -3,7 +3,13 @@
 import { useEffect, useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useForm, useWatch } from "react-hook-form";
-import { CalendarDays, FileUp, Loader2, ShieldCheck, Users } from "lucide-react";
+import {
+  CalendarDays,
+  FileUp,
+  Loader2,
+  ShieldCheck,
+  Users,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
@@ -64,7 +70,8 @@ export function BookingForm({ trips }: { trips: TripOption[] }) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const preferredTrip = searchParams.get("trip");
-  const initialTrip = trips.find((trip) => trip.slug === preferredTrip)?.id ?? trips[0]?.id ?? "";
+  const initialTrip =
+    trips.find((trip) => trip.slug === preferredTrip)?.id ?? trips[0]?.id ?? "";
   const [file, setFile] = useState<File | null>(null);
   const [serverError, setServerError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
@@ -91,10 +98,16 @@ export function BookingForm({ trips }: { trips: TripOption[] }) {
   });
 
   const watched = useWatch({ control: form.control });
-  const selectedTrip = trips.find((trip) => trip.id === watched.tripId) ?? trips[0];
-  const endDate = watched.startDate && selectedTrip ? addDays(watched.startDate, selectedTrip.numberOfDays - 1) : "";
+  const selectedTrip =
+    trips.find((trip) => trip.id === watched.tripId) ?? trips[0];
+  const endDate =
+    watched.startDate && selectedTrip
+      ? addDays(watched.startDate, selectedTrip.numberOfDays - 1)
+      : "";
   const peopleCount = Number(watched.peopleCount || 1);
-  const totalAmount = selectedTrip ? selectedTrip.basePriceCents * peopleCount : 0;
+  const totalAmount = selectedTrip
+    ? selectedTrip.basePriceCents * peopleCount
+    : 0;
   const depositAmount = Math.ceil(totalAmount * 0.3);
 
   const minStartDate = useMemo(() => {
@@ -107,7 +120,11 @@ export function BookingForm({ trips }: { trips: TripOption[] }) {
     const saved = window.sessionStorage.getItem(draftKey);
 
     if (saved) {
-      form.reset({ ...form.getValues(), ...JSON.parse(saved), tripId: initialTrip });
+      form.reset({
+        ...form.getValues(),
+        ...JSON.parse(saved),
+        tripId: initialTrip,
+      });
     }
   }, [form, initialTrip]);
 
@@ -124,7 +141,9 @@ export function BookingForm({ trips }: { trips: TripOption[] }) {
     }
 
     if (selectedTrip && Number(values.peopleCount) > selectedTrip.maxCapacity) {
-      setServerError(`This trip supports up to ${selectedTrip.maxCapacity} travelers.`);
+      setServerError(
+        `This trip supports up to ${selectedTrip.maxCapacity} travelers.`,
+      );
       return;
     }
 
@@ -168,21 +187,45 @@ export function BookingForm({ trips }: { trips: TripOption[] }) {
               </option>
             ))}
           </Select>
-          <Select label="Booking type" {...form.register("bookingType", { required: true })}>
+          <Select
+            label="Booking type"
+            {...form.register("bookingType", { required: true })}
+          >
             {BOOKING_TYPES.map((type) => (
               <option key={type} value={type}>
                 {type === "SOLO" ? "Solo" : "Group"}
               </option>
             ))}
           </Select>
-          <Input label="Number of people" type="number" min={1} max={selectedTrip?.maxCapacity ?? 30} {...form.register("peopleCount", { valueAsNumber: true, min: 1, max: selectedTrip?.maxCapacity ?? 30 })} />
-          <Input label="Start date" type="date" min={minStartDate} {...form.register("startDate", { required: true })} />
+          <Input
+            label="Number of people"
+            type="number"
+            min={1}
+            max={selectedTrip?.maxCapacity ?? 30}
+            {...form.register("peopleCount", {
+              valueAsNumber: true,
+              min: 1,
+              max: selectedTrip?.maxCapacity ?? 30,
+            })}
+          />
+          <Input
+            label="Start date"
+            type="date"
+            min={minStartDate}
+            {...form.register("startDate", { required: true })}
+          />
         </div>
         {selectedTrip && (
           <div className="mt-5 grid gap-3 rounded-3xl bg-background p-4 text-sm text-stone sm:grid-cols-3">
             <span>{selectedTrip.location}</span>
-            <span>{selectedTrip.numberOfDays} days · ends {endDate || "after start date"}</span>
-            <span>{formatCurrency(totalAmount)} total · {formatCurrency(depositAmount)} simulated deposit</span>
+            <span>
+              {selectedTrip.numberOfDays} days · ends{" "}
+              {endDate || "after start date"}
+            </span>
+            <span>
+              {formatCurrency(totalAmount)} total ·{" "}
+              {formatCurrency(depositAmount)} simulated deposit
+            </span>
           </div>
         )}
       </section>
@@ -193,24 +236,65 @@ export function BookingForm({ trips }: { trips: TripOption[] }) {
           <h2 className="text-xl font-bold">Traveler Details</h2>
         </div>
         <div className="grid gap-4 md:grid-cols-3">
-          <Input label="First name" error={form.formState.errors.firstName?.message} {...form.register("firstName", { required: "First name is required" })} />
+          <Input
+            label="First name"
+            error={form.formState.errors.firstName?.message}
+            {...form.register("firstName", {
+              required: "First name is required",
+            })}
+          />
           <Input label="Middle name" {...form.register("middleName")} />
-          <Input label="Last name" error={form.formState.errors.lastName?.message} {...form.register("lastName", { required: "Last name is required" })} />
-          <Input label="Email" type="email" error={form.formState.errors.email?.message} {...form.register("email", { required: "Email is required" })} />
-          <Input label="Phone" helperText="Use +91 format or 10 digits" error={form.formState.errors.phone?.message} {...form.register("phone", { required: "Phone is required" })} />
-          <Input label="Date of birth" type="date" error={form.formState.errors.dob?.message} {...form.register("dob", { required: "Date of birth is required" })} />
-          <Select label="Gender" {...form.register("gender", { required: true })}>
+          <Input
+            label="Last name"
+            error={form.formState.errors.lastName?.message}
+            {...form.register("lastName", {
+              required: "Last name is required",
+            })}
+          />
+          <Input
+            label="Email"
+            type="email"
+            error={form.formState.errors.email?.message}
+            {...form.register("email", { required: "Email is required" })}
+          />
+          <Input
+            label="Phone"
+            helperText="Use +91 format or 10 digits"
+            error={form.formState.errors.phone?.message}
+            {...form.register("phone", { required: "Phone is required" })}
+          />
+          <Input
+            label="Date of birth"
+            type="date"
+            error={form.formState.errors.dob?.message}
+            {...form.register("dob", { required: "Date of birth is required" })}
+          />
+          <Select
+            label="Gender"
+            {...form.register("gender", { required: true })}
+          >
             {GENDERS.map((gender) => (
               <option key={gender} value={gender}>
                 {gender}
               </option>
             ))}
           </Select>
-          <Input label="PIN" error={form.formState.errors.pin?.message} {...form.register("pin", { required: "PIN is required" })} />
-          <Input label="Emergency contact" {...form.register("emergencyContact")} />
+          <Input
+            label="PIN"
+            error={form.formState.errors.pin?.message}
+            {...form.register("pin", { required: "PIN is required" })}
+          />
+          <Input
+            label="Emergency contact"
+            {...form.register("emergencyContact")}
+          />
         </div>
         <div className="mt-4">
-          <Textarea label="Address" error={form.formState.errors.address?.message} {...form.register("address", { required: "Address is required" })} />
+          <Textarea
+            label="Address"
+            error={form.formState.errors.address?.message}
+            {...form.register("address", { required: "Address is required" })}
+          />
         </div>
       </section>
 
@@ -221,22 +305,46 @@ export function BookingForm({ trips }: { trips: TripOption[] }) {
         </div>
         <label className="grid gap-3 rounded-3xl border border-dashed border-line bg-background p-5 text-sm font-semibold text-foreground">
           <span className="inline-flex items-center gap-2">
-            <FileUp className="size-4 text-sunrise" aria-hidden="true" /> Upload Aadhaar card
+            <FileUp className="size-4 text-sunrise" aria-hidden="true" /> Upload
+            Aadhaar card
           </span>
-          <input type="file" accept="application/pdf,image/jpeg,image/png" onChange={(event) => setFile(event.target.files?.[0] ?? null)} className="text-sm" />
-          <span className="text-xs font-medium text-stone">PDF, JPG, or PNG. Maximum 5 MB. Stored locally for V1.</span>
+          <input
+            type="file"
+            accept="application/pdf,image/jpeg,image/png"
+            onChange={(event) => setFile(event.target.files?.[0] ?? null)}
+            className="text-sm"
+          />
+          <span className="text-xs font-medium text-stone">
+            PDF, JPG, or PNG. Maximum 5 MB. Stored locally for V1.
+          </span>
           {file ? <StatusBadge tone="success">{file.name}</StatusBadge> : null}
         </label>
         <label className="mt-5 flex gap-3 text-sm leading-6 text-stone">
-          <input type="checkbox" className="mt-1 size-4" {...form.register("consentGiven", { required: true })} />
-          I confirm the traveler details are accurate and consent to local V1 document storage for booking operations.
+          <input
+            type="checkbox"
+            className="mt-1 size-4"
+            {...form.register("consentGiven", { required: true })}
+          />
+          I confirm the traveler details are accurate and consent to local V1
+          document storage for booking operations.
         </label>
       </section>
 
-      {serverError && <p className="rounded-3xl bg-danger/10 px-5 py-4 text-sm font-bold text-danger">{serverError}</p>}
+      {serverError && (
+        <p className="rounded-3xl bg-danger/10 px-5 py-4 text-sm font-bold text-danger">
+          {serverError}
+        </p>
+      )}
 
-      <Button type="submit" size="lg" loading={submitting} disabled={submitting}>
-        {submitting ? <Loader2 className="size-4 animate-spin" aria-hidden="true" /> : null}
+      <Button
+        type="submit"
+        size="lg"
+        loading={submitting}
+        disabled={submitting}
+      >
+        {submitting ? (
+          <Loader2 className="size-4 animate-spin" aria-hidden="true" />
+        ) : null}
         {submitting ? "Creating booking" : "Confirm booking"}
       </Button>
     </form>

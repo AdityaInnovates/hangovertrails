@@ -15,7 +15,11 @@ export async function POST(_request: Request, context: RouteContext) {
 
   if (!booking) return fail("BOOKING_NOT_FOUND", "Booking was not found.", 404);
 
-  await recordMockEmail(id, booking.bookingCode, "BOOKING_CONFIRMATION_RESENT_SIMULATED_EMAIL");
+  await recordMockEmail(
+    id,
+    booking.bookingCode,
+    "BOOKING_CONFIRMATION_RESENT_SIMULATED_EMAIL",
+  );
 
   return ok({ resent: true, bookingCode: booking.bookingCode });
 }

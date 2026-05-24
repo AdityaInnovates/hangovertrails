@@ -1,4 +1,7 @@
-export function createInstallmentSchedule(totalAmountCents: number, startDate: Date) {
+export function createInstallmentSchedule(
+  totalAmountCents: number,
+  startDate: Date,
+) {
   const depositAmount = Math.ceil(totalAmountCents * 0.3);
   const balanceAmount = totalAmountCents - depositAmount;
   const balanceDueDate = new Date(startDate);

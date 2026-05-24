@@ -1,5 +1,8 @@
 import { fail, ok } from "@/lib/api-response";
-import { generateBookingCode, generateGroupBookingCode } from "@/lib/booking-id";
+import {
+  generateBookingCode,
+  generateGroupBookingCode,
+} from "@/lib/booking-id";
 import { prisma } from "@/lib/db";
 import { env } from "@/lib/env";
 import { createInstallmentSchedule } from "@/lib/mock-payment";
@@ -11,7 +14,11 @@ import { bookingRequestSchema, validateTripDates } from "@/lib/validators";
 export const runtime = "nodejs";
 
 function getClientIp(request: Request) {
-  return request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || request.headers.get("x-real-ip") || "local";
+  return (
+    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+    request.headers.get("x-real-ip") ||
+    "local"
+  );
 }
 
 function formValue(formData: FormData, key: string) {
@@ -21,10 +28,18 @@ function formValue(formData: FormData, key: string) {
 
 export async function POST(request: Request) {
   const ip = getClientIp(request);
-  const rateLimit = checkRateLimit(`booking:${ip}`, env.BOOKING_RATE_LIMIT_MAX, env.BOOKING_RATE_LIMIT_WINDOW_MINUTES);
+  const rateLimit = checkRateLimit(
+    `booking:${ip}`,
+    env.BOOKING_RATE_LIMIT_MAX,
+    env.BOOKING_RATE_LIMIT_WINDOW_MINUTES,
+  );
 
   if (!rateLimit.allowed) {
-    return fail("RATE_LIMITED", "Too many booking attempts. Please wait before trying again.", 429);
+    return fail(
+      "RATE_LIMITED",
+      "Too many booking attempts. Please wait before trying again.",
+      429,
+    );
   }
 
   const formData = await request.formData().catch(() => null);
@@ -59,7 +74,10 @@ export async function POST(request: Request) {
   });
 
   if (!parsed.success) {
-    return fail("VALIDATION_FAILED", parsed.error.issues[0]?.message ?? "Booking details are invalid.");
+    return fail(
+      "VALIDATION_FAILED",
+      parsed.error.issues[0]?.message ?? "Booking details are invalid.",
+    );
   }
 
   const input = parsed.data;
@@ -69,7 +87,12 @@ export async function POST(request: Request) {
     return fail("TRIP_NOT_FOUND", "Select an active trip package.", 404);
   }
 
-  const dateError = validateTripDates(input.startDate, input.endDate, trip.numberOfDays, trip.minBookingDaysInAdvance);
+  const dateError = validateTripDates(
+    input.startDate,
+    input.endDate,
+    trip.numberOfDays,
+    trip.minBookingDaysInAdvance,
+  );
 
   if (dateError) {
     return fail("INVALID_TRIP_DATES", dateError);
@@ -84,19 +107,33 @@ export async function POST(request: Request) {
     },
     select: { peopleCount: true },
   });
-  const bookedPeople = overlappingBookings.reduce((total, booking) => total + booking.peopleCount, 0);
+  const bookedPeople = overlappingBookings.reduce(
+    (total, booking) => total + booking.peopleCount,
+    0,
+  );
 
   if (bookedPeople + input.peopleCount > trip.maxCapacity) {
-    return fail("CAPACITY_EXCEEDED", `Only ${Math.max(trip.maxCapacity - bookedPeople, 0)} seats are available for this date range.`);
+    return fail(
+      "CAPACITY_EXCEEDED",
+      `Only ${Math.max(trip.maxCapacity - bookedPeople, 0)} seats are available for this date range.`,
+    );
   }
 
-  const bookingCode = await generateBookingCode(trip, input.startDate, input.endDate, input.firstName);
+  const bookingCode = await generateBookingCode(
+    trip,
+    input.startDate,
+    input.endDate,
+    input.firstName,
+  );
 
   let upload;
   try {
     upload = await storeAadhaarFile(aadhaarFile, bookingCode);
   } catch (error) {
-    return fail("UPLOAD_REJECTED", error instanceof Error ? error.message : "Aadhaar upload failed.");
+    return fail(
+      "UPLOAD_REJECTED",
+      error instanceof Error ? error.message : "Aadhaar upload failed.",
+    );
   }
 
   const totalAmountCents = trip.basePriceCents * input.peopleCount;
@@ -106,7 +143,11 @@ export async function POST(request: Request) {
     let groupId: string | undefined;
 
     if (input.bookingType === "GROUP") {
-      const groupBookingCode = await generateGroupBookingCode(trip.tripCode, input.startDate, input.firstName);
+      const groupBookingCode = await generateGroupBookingCode(
+        trip.tripCode,
+        input.startDate,
+        input.firstName,
+      );
       const expiresAt = new Date();
       expiresAt.setDate(expiresAt.getDate() + 7);
 
@@ -173,7 +214,10 @@ export async function POST(request: Request) {
       paymentStatus: booking.paymentStatus,
       bookingStatus: booking.bookingStatus,
       totalAmountCents: booking.bookingAmountCents,
-      paidAmountCents: booking.payments.reduce((total, payment) => total + payment.paidAmountCents, 0),
+      paidAmountCents: booking.payments.reduce(
+        (total, payment) => total + payment.paidAmountCents,
+        0,
+      ),
     },
   });
 }

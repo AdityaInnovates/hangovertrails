@@ -14,11 +14,22 @@ export const bookingRequestSchema = z.object({
   lastName: plainText.max(80),
   email: z.string().trim().toLowerCase().email(),
   address: plainText.max(500),
-  pin: z.string().trim().regex(/^\d{6}$/, "PIN must be 6 digits"),
-  phone: z.string().trim().regex(/^(\+91)?[6-9]\d{9}$/, "Enter a valid Indian phone number"),
+  pin: z
+    .string()
+    .trim()
+    .regex(/^\d{6}$/, "PIN must be 6 digits"),
+  phone: z
+    .string()
+    .trim()
+    .regex(/^(\+91)?[6-9]\d{9}$/, "Enter a valid Indian phone number"),
   dob: z.coerce.date(),
   gender: z.enum(GENDERS),
-  emergencyContact: z.string().trim().regex(/^(\+91)?[6-9]\d{9}$/).optional().or(z.literal("")),
+  emergencyContact: z
+    .string()
+    .trim()
+    .regex(/^(\+91)?[6-9]\d{9}$/)
+    .optional()
+    .or(z.literal("")),
   consentGiven: z.coerce.boolean().refine(Boolean, "Consent is required"),
   bookingType: z.enum(BOOKING_TYPES),
   peopleCount: z.coerce.number().int().min(1).max(30),
@@ -29,7 +40,12 @@ export const bookingRequestSchema = z.object({
 
 export type BookingRequestInput = z.infer<typeof bookingRequestSchema>;
 
-export function validateTripDates(startDate: Date, endDate: Date, numberOfDays: number, minBookingDaysInAdvance: number) {
+export function validateTripDates(
+  startDate: Date,
+  endDate: Date,
+  numberOfDays: number,
+  minBookingDaysInAdvance: number,
+) {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 

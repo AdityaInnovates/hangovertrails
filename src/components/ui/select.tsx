@@ -7,12 +7,23 @@ type SelectProps = ComponentPropsWithoutRef<"select"> & {
   helperText?: string;
 };
 
-export function Select({ className, label, error, helperText, id, children, ...props }: SelectProps) {
+export function Select({
+  className,
+  label,
+  error,
+  helperText,
+  id,
+  children,
+  ...props
+}: SelectProps) {
   const selectId = id ?? props.name;
   const descriptionId = selectId ? `${selectId}-description` : undefined;
 
   return (
-    <label className="grid gap-2 text-sm font-semibold text-foreground" htmlFor={selectId}>
+    <label
+      className="grid gap-2 text-sm font-semibold text-foreground"
+      htmlFor={selectId}
+    >
       {label}
       <select
         id={selectId}
@@ -28,7 +39,13 @@ export function Select({ className, label, error, helperText, id, children, ...p
         {children}
       </select>
       {(error || helperText) && (
-        <span id={descriptionId} className={cn("text-xs font-medium", error ? "text-danger" : "text-stone")}>
+        <span
+          id={descriptionId}
+          className={cn(
+            "text-xs font-medium",
+            error ? "text-danger" : "text-stone",
+          )}
+        >
           {error ?? helperText}
         </span>
       )}

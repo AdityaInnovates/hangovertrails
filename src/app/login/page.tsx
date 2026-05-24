@@ -34,22 +34,32 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
       <div className="absolute inset-0 bg-gradient-to-br from-black/68 via-forest-deep/56 to-black/45" />
       <div className="relative z-10 mx-auto flex min-h-[calc(100vh-3rem)] max-w-7xl flex-col">
         <header className="flex items-center justify-between">
-          <Link href="/" className="inline-flex items-center gap-2 text-sm font-bold text-white">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-2 text-sm font-bold text-white"
+          >
             <Mountain className="size-4" aria-hidden="true" /> ArunachalRise
           </Link>
-          <Link href="/" className="rounded-full bg-white/12 px-4 py-2 text-xs font-bold text-white ring-1 ring-white/20 backdrop-blur transition hover:bg-white/18">
+          <Link
+            href="/"
+            className="rounded-full bg-white/12 px-4 py-2 text-xs font-bold text-white ring-1 ring-white/20 backdrop-blur transition hover:bg-white/18"
+          >
             Public site
           </Link>
         </header>
 
         <section className="grid flex-1 items-center gap-10 py-16 lg:grid-cols-[1fr_460px]">
           <div className="max-w-3xl">
-            <SectionLabel className="border-white/25 bg-white/12 text-white shadow-none">Admin CRM</SectionLabel>
+            <SectionLabel className="border-white/25 bg-white/12 text-white shadow-none">
+              Admin CRM
+            </SectionLabel>
             <h1 className="mt-7 font-display text-6xl font-semibold leading-tight sm:text-8xl">
               Operations for Every Expedition Detail
             </h1>
             <p className="mt-6 max-w-2xl text-base leading-8 text-white/76">
-              Manage trips, bookings, payments, expenses, stays, and itinerary planning from the same premium platform travelers see on the public site.
+              Manage trips, bookings, payments, expenses, stays, and itinerary
+              planning from the same premium platform travelers see on the
+              public site.
             </p>
           </div>
 
@@ -60,7 +70,9 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
               </span>
               <div>
                 <h2 className="text-2xl font-bold">Sign in to CRM</h2>
-                <p className="mt-1 text-sm leading-6 text-stone">Local V1 uses seeded admin credentials for development.</p>
+                <p className="mt-1 text-sm leading-6 text-stone">
+                  Local V1 uses seeded admin credentials for development.
+                </p>
               </div>
             </div>
             <LoginForm nextPath={nextPath} />

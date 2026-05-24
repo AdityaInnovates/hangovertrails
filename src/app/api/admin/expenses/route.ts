@@ -15,7 +15,12 @@ export async function GET() {
 
   if (response) return response;
 
-  return ok(await prisma.expense.findMany({ include: { trip: true }, orderBy: { createdAt: "desc" } }));
+  return ok(
+    await prisma.expense.findMany({
+      include: { trip: true },
+      orderBy: { createdAt: "desc" },
+    }),
+  );
 }
 
 export async function POST(request: Request) {
@@ -25,7 +30,8 @@ export async function POST(request: Request) {
 
   const body = expenseSchema.safeParse(await request.json().catch(() => null));
 
-  if (!body.success) return fail("INVALID_EXPENSE", "Trip, category, and amount are required.");
+  if (!body.success)
+    return fail("INVALID_EXPENSE", "Trip, category, and amount are required.");
 
   const expense = await prisma.expense.create({
     data: {
@@ -36,7 +42,15 @@ export async function POST(request: Request) {
       notes: body.data.notes,
     },
   });
-  await prisma.auditLog.create({ data: { actorId: admin?.id, actorEmail: admin?.email, action: "EXPENSE_CREATED", entityType: "Expense", entityId: expense.id } });
+  await prisma.auditLog.create({
+    data: {
+      actorId: admin?.id,
+      actorEmail: admin?.email,
+      action: "EXPENSE_CREATED",
+      entityType: "Expense",
+      entityId: expense.id,
+    },
+  });
 
   return ok(expense, { status: 201 });
 }

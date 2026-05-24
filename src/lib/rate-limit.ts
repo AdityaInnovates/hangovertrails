@@ -5,7 +5,11 @@ type RateLimitEntry = {
 
 const buckets = new Map<string, RateLimitEntry>();
 
-export function checkRateLimit(key: string, maxAttempts: number, windowMinutes: number) {
+export function checkRateLimit(
+  key: string,
+  maxAttempts: number,
+  windowMinutes: number,
+) {
   const now = Date.now();
   const resetAt = now + windowMinutes * 60 * 1000;
   const current = buckets.get(key);
@@ -22,5 +26,9 @@ export function checkRateLimit(key: string, maxAttempts: number, windowMinutes: 
   current.count += 1;
   buckets.set(key, current);
 
-  return { allowed: true, remaining: maxAttempts - current.count, resetAt: current.resetAt };
+  return {
+    allowed: true,
+    remaining: maxAttempts - current.count,
+    resetAt: current.resetAt,
+  };
 }

@@ -12,14 +12,24 @@ const loginSchema = z.object({
 });
 
 const getClientIp = (request: Request) =>
-  request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || request.headers.get("x-real-ip") || "local";
+  request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+  request.headers.get("x-real-ip") ||
+  "local";
 
 export async function POST(request: Request) {
   const ip = getClientIp(request);
-  const limit = checkRateLimit(`login:${ip}`, env.LOGIN_RATE_LIMIT_MAX, env.LOGIN_RATE_LIMIT_WINDOW_MINUTES);
+  const limit = checkRateLimit(
+    `login:${ip}`,
+    env.LOGIN_RATE_LIMIT_MAX,
+    env.LOGIN_RATE_LIMIT_WINDOW_MINUTES,
+  );
 
   if (!limit.allowed) {
-    return fail("RATE_LIMITED", "Too many login attempts. Please wait before trying again.", 429);
+    return fail(
+      "RATE_LIMITED",
+      "Too many login attempts. Please wait before trying again.",
+      429,
+    );
   }
 
   const payload = loginSchema.safeParse(await request.json().catch(() => null));
@@ -28,8 +38,12 @@ export async function POST(request: Request) {
     return fail("INVALID_LOGIN_PAYLOAD", "Enter a valid email and password.");
   }
 
-  const user = await prisma.user.findUnique({ where: { email: payload.data.email.toLowerCase() } });
-  const validPassword = user ? await bcrypt.compare(payload.data.password, user.passwordHash) : false;
+  const user = await prisma.user.findUnique({
+    where: { email: payload.data.email.toLowerCase() },
+  });
+  const validPassword = user
+    ? await bcrypt.compare(payload.data.password, user.passwordHash)
+    : false;
 
   if (!user || !validPassword || user.role !== "ADMIN") {
     await prisma.auditLog.create({
@@ -42,7 +56,11 @@ export async function POST(request: Request) {
       },
     });
 
-    return fail("INVALID_CREDENTIALS", "The email or password is incorrect.", 401);
+    return fail(
+      "INVALID_CREDENTIALS",
+      "The email or password is incorrect.",
+      401,
+    );
   }
 
   await prisma.user.update({
@@ -68,7 +86,9 @@ export async function POST(request: Request) {
     sessionVersion: user.sessionVersion,
   });
 
-  const response = ok({ user: { id: user.id, email: user.email, name: user.name, role: user.role } });
+  const response = ok({
+    user: { id: user.id, email: user.email, name: user.name, role: user.role },
+  });
   response.cookies.set(SESSION_COOKIE_NAME, token, {
     httpOnly: true,
     sameSite: "lax",

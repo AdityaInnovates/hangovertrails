@@ -1,6 +1,10 @@
 import { prisma } from "@/lib/db";
 
-export async function recordMockEmail(entityId: string, bookingCode: string, action = "BOOKING_CONFIRMATION_SIMULATED_EMAIL") {
+export async function recordMockEmail(
+  entityId: string,
+  bookingCode: string,
+  action = "BOOKING_CONFIRMATION_SIMULATED_EMAIL",
+) {
   return prisma.auditLog.create({
     data: {
       actorEmail: "system",

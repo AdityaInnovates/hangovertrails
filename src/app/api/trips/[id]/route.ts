@@ -10,7 +10,11 @@ export async function GET(_request: Request, context: RouteContext) {
   const trip = await getTripByIdOrSlug(id);
 
   if (!trip) {
-    return fail("TRIP_NOT_FOUND", "No active trip was found for the provided identifier.", 404);
+    return fail(
+      "TRIP_NOT_FOUND",
+      "No active trip was found for the provided identifier.",
+      404,
+    );
   }
 
   return ok({ trip });

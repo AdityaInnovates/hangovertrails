@@ -11,13 +11,19 @@ export const metadata = {
 };
 
 export default async function DestinationsPage() {
-  const [destinations, trips] = await Promise.all([getDestinations(), getTrips(undefined, 12)]);
+  const [destinations, trips] = await Promise.all([
+    getDestinations(),
+    getTrips(undefined, 12),
+  ]);
 
   return (
     <main className="min-h-screen bg-background text-foreground">
       <section className="px-4 py-8 sm:px-6 lg:px-10">
         <div className="mx-auto max-w-7xl">
-          <Link href="/" className="inline-flex items-center gap-2 text-sm font-bold text-forest">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-2 text-sm font-bold text-forest"
+          >
             <Mountain className="size-4" aria-hidden="true" /> ArunachalRise
           </Link>
           <div className="mt-12 grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
@@ -28,7 +34,9 @@ export default async function DestinationsPage() {
               </h1>
             </div>
             <p className="max-w-2xl text-base leading-8 text-stone">
-              V1 intentionally supports only Tawang, Ziro, Mechuka, and Anini so itinerary planning, booking validation, and CRM operations stay controlled.
+              V1 intentionally supports only Tawang, Ziro, Mechuka, and Anini so
+              itinerary planning, booking validation, and CRM operations stay
+              controlled.
             </p>
           </div>
         </div>
@@ -36,16 +44,35 @@ export default async function DestinationsPage() {
 
       <section className="mx-auto grid max-w-7xl gap-6 px-4 pb-24 sm:px-6 md:grid-cols-2 lg:px-10">
         {destinations.map((destination) => {
-          const destinationTrips = trips.filter((trip) => trip.location === destination.name);
+          const destinationTrips = trips.filter(
+            (trip) => trip.location === destination.name,
+          );
 
           return (
-            <Link key={destination.name} href={`/destinations/${destination.slug}`} className="group relative min-h-[440px] overflow-hidden rounded-[2rem] bg-forest-deep text-white shadow-glass">
-              <Image src={destination.imageUrl} alt={`${destination.name} landscape`} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover transition duration-500 group-hover:scale-105" />
+            <Link
+              key={destination.name}
+              href={`/destinations/${destination.slug}`}
+              className="group relative min-h-[440px] overflow-hidden rounded-[2rem] bg-forest-deep text-white shadow-glass"
+            >
+              <Image
+                src={destination.imageUrl}
+                alt={`${destination.name} landscape`}
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover transition duration-500 group-hover:scale-105"
+              />
               <div className="absolute inset-0 bg-gradient-to-t from-black/82 via-black/20 to-transparent" />
               <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8">
-                <StatusBadge className="bg-white/18 text-white ring-white/25">{destinationTrips.length} package{destinationTrips.length === 1 ? "" : "s"}</StatusBadge>
-                <h2 className="mt-5 font-display text-5xl font-semibold">{destination.name}</h2>
-                <p className="mt-3 max-w-xl text-sm leading-7 text-white/78">{destination.description}</p>
+                <StatusBadge className="bg-white/18 text-white ring-white/25">
+                  {destinationTrips.length} package
+                  {destinationTrips.length === 1 ? "" : "s"}
+                </StatusBadge>
+                <h2 className="mt-5 font-display text-5xl font-semibold">
+                  {destination.name}
+                </h2>
+                <p className="mt-3 max-w-xl text-sm leading-7 text-white/78">
+                  {destination.description}
+                </p>
                 <span className="mt-6 inline-flex items-center gap-2 text-sm font-bold">
                   View route
                   <ArrowRight className="size-4" aria-hidden="true" />

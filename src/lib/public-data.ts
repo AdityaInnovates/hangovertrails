@@ -29,26 +29,37 @@ export type TripSummary = {
   }[];
 };
 
-const destinationCopy: Record<Location, Omit<DestinationSummary, "name" | "tripCount">> = {
+const destinationCopy: Record<
+  Location,
+  Omit<DestinationSummary, "name" | "tripCount">
+> = {
   Tawang: {
     slug: "tawang",
-    description: "High passes, monastery mornings, alpine lakes, and cinematic Himalayan road journeys.",
-    imageUrl: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=85",
+    description:
+      "High passes, monastery mornings, alpine lakes, and cinematic Himalayan road journeys.",
+    imageUrl:
+      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=85",
   },
   Ziro: {
     slug: "ziro",
-    description: "Apatani culture, paddy landscapes, pine ridges, slow village walks, and warm homestays.",
-    imageUrl: "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1400&q=85",
+    description:
+      "Apatani culture, paddy landscapes, pine ridges, slow village walks, and warm homestays.",
+    imageUrl:
+      "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1400&q=85",
   },
   Mechuka: {
     slug: "mechuka",
-    description: "Remote river valleys, monastery trails, wooden homes, and soft evening mountain light.",
-    imageUrl: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1400&q=85",
+    description:
+      "Remote river valleys, monastery trails, wooden homes, and soft evening mountain light.",
+    imageUrl:
+      "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1400&q=85",
   },
   Anini: {
     slug: "anini",
-    description: "Cloud forests, 4x4 routes, quiet ridgelines, and one of Arunachal's wildest frontiers.",
-    imageUrl: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?auto=format&fit=crop&w=1400&q=85",
+    description:
+      "Cloud forests, 4x4 routes, quiet ridgelines, and one of Arunachal's wildest frontiers.",
+    imageUrl:
+      "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?auto=format&fit=crop&w=1400&q=85",
   },
 };
 
@@ -64,7 +75,8 @@ export async function getDestinations(): Promise<DestinationSummary[]> {
   });
 
   return LOCATIONS.map((name) => {
-    const tripCount = groupedTrips.find((group) => group.location === name)?._count.id ?? 0;
+    const tripCount =
+      groupedTrips.find((group) => group.location === name)?._count.id ?? 0;
 
     return {
       name,
@@ -80,7 +92,10 @@ export async function getDestinationBySlug(slug: string) {
   return destinations.find((destination) => destination.slug === slug);
 }
 
-export async function getTrips(location?: Location, limit = 12): Promise<TripSummary[]> {
+export async function getTrips(
+  location?: Location,
+  limit = 12,
+): Promise<TripSummary[]> {
   return prisma.trip.findMany({
     where: {
       isActive: true,

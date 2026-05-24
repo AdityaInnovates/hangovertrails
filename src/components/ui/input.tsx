@@ -7,12 +7,22 @@ type InputProps = ComponentPropsWithoutRef<"input"> & {
   helperText?: string;
 };
 
-export function Input({ className, label, error, helperText, id, ...props }: InputProps) {
+export function Input({
+  className,
+  label,
+  error,
+  helperText,
+  id,
+  ...props
+}: InputProps) {
   const inputId = id ?? props.name;
   const descriptionId = inputId ? `${inputId}-description` : undefined;
 
   return (
-    <label className="grid gap-2 text-sm font-semibold text-foreground" htmlFor={inputId}>
+    <label
+      className="grid gap-2 text-sm font-semibold text-foreground"
+      htmlFor={inputId}
+    >
       {label}
       <input
         id={inputId}
@@ -26,7 +36,13 @@ export function Input({ className, label, error, helperText, id, ...props }: Inp
         {...props}
       />
       {(error || helperText) && (
-        <span id={descriptionId} className={cn("text-xs font-medium", error ? "text-danger" : "text-stone")}>
+        <span
+          id={descriptionId}
+          className={cn(
+            "text-xs font-medium",
+            error ? "text-danger" : "text-stone",
+          )}
+        >
           {error ?? helperText}
         </span>
       )}

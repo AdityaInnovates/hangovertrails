@@ -12,7 +12,8 @@ type ButtonProps = ComponentPropsWithoutRef<"button"> & {
 
 const variants: Record<ButtonVariant, string> = {
   primary: "bg-forest text-white shadow-soft hover:bg-forest-deep",
-  secondary: "bg-surface text-foreground ring-1 ring-line hover:bg-surface-muted",
+  secondary:
+    "bg-surface text-foreground ring-1 ring-line hover:bg-surface-muted",
   ghost: "bg-transparent text-foreground hover:bg-foreground/5",
   danger: "bg-danger text-white shadow-soft hover:bg-danger/90",
 };

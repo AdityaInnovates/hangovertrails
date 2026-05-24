@@ -15,9 +15,19 @@ const tones: Record<StatusTone, string> = {
   neutral: "bg-stone/10 text-stone ring-stone/20",
 };
 
-export function StatusBadge({ children, tone = "neutral", className }: StatusBadgeProps) {
+export function StatusBadge({
+  children,
+  tone = "neutral",
+  className,
+}: StatusBadgeProps) {
   return (
-    <span className={cn("inline-flex items-center rounded-full px-3 py-1 text-xs font-bold ring-1", tones[tone], className)}>
+    <span
+      className={cn(
+        "inline-flex items-center rounded-full px-3 py-1 text-xs font-bold ring-1",
+        tones[tone],
+        className,
+      )}
+    >
       {children}
     </span>
   );

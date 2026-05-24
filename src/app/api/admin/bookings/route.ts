@@ -31,7 +31,13 @@ export async function GET(request: Request) {
 
   const [total, bookings] = await Promise.all([
     prisma.booking.count({ where }),
-    prisma.booking.findMany({ where, skip: offset, take: limit, orderBy: { createdAt: "desc" }, include: { trip: true, group: true, payments: true } }),
+    prisma.booking.findMany({
+      where,
+      skip: offset,
+      take: limit,
+      orderBy: { createdAt: "desc" },
+      include: { trip: true, group: true, payments: true },
+    }),
   ]);
 
   return ok({ bookings, pagination: { total, limit, offset } });
