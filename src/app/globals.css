@@ -1,26 +1,68 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f7f4ee;
+  --foreground: #1f2722;
+  --surface: #fffdf8;
+  --surface-muted: #eee7dc;
+  --mist: #dce8e7;
+  --forest: #1f4f3d;
+  --forest-deep: #112d24;
+  --sunrise: #d98745;
+  --ember: #b85f35;
+  --stone: #716b61;
+  --line: #ded7cb;
+  --danger: #b84a3a;
+  --success: #2f7a55;
+  --warning: #c17a22;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-mist: var(--mist);
+  --color-forest: var(--forest);
+  --color-forest-deep: var(--forest-deep);
+  --color-sunrise: var(--sunrise);
+  --color-ember: var(--ember);
+  --color-stone: var(--stone);
+  --color-line: var(--line);
+  --color-danger: var(--danger);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --font-sans: var(--font-manrope);
+  --font-display: var(--font-display);
+  --shadow-soft: 0 18px 60px rgb(31 39 34 / 0.12);
+  --shadow-glass: 0 18px 60px rgb(17 45 36 / 0.22);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-manrope), sans-serif;
+}
+
+::selection {
+  background: rgb(217 135 69 / 0.28);
+}
+
+button,
+a,
+input,
+select,
+textarea {
+  outline-color: var(--sunrise);
+}
+
+img {
+  max-width: 100%;
+}
+
+.glass-panel {
+  background: rgb(255 253 248 / 0.72);
+  border: 1px solid rgb(255 255 255 / 0.58);
+  box-shadow: var(--shadow-glass);
+  backdrop-filter: blur(18px);
 }

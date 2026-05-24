@@ -1,0 +1,191 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String     @id @default(cuid())
+  email          String     @unique
+  name           String
+  passwordHash   String
+  role           String     @default("ADMIN")
+  sessionVersion Int        @default(1)
+  lastLoginAt    DateTime?
+  lastLoginIp    String?
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+  auditLogs      AuditLog[]
+}
+
+model Trip {
+  id                       String         @id @default(cuid())
+  tripCode                 String         @unique
+  name                     String
+  slug                     String         @unique
+  location                 String
+  numberOfDays             Int
+  vehicleType              String
+  gstIncluded              Boolean        @default(false)
+  inclusions               Json
+  exclusions               Json
+  basePriceCents           Int
+  totalCostCents           Int
+  maxCapacity              Int
+  minBookingDaysInAdvance  Int            @default(3)
+  isActive                 Boolean        @default(true)
+  heroImageUrl             String
+  cardImageUrl             String
+  galleryImages            Json
+  createdAt                DateTime       @default(now())
+  updatedAt                DateTime       @updatedAt
+  itineraryDays            ItineraryDay[]
+  bookingGroups            BookingGroup[]
+  bookings                 Booking[]
+  expenses                 Expense[]
+
+  @@index([location])
+  @@index([isActive])
+}
+
+model ItineraryDay {
+  id              String   @id @default(cuid())
+  tripId          String
+  dayNumber       Int
+  title           String
+  stayLocation    String
+  visitingPlaces  Json
+  activities      Json
+  vehicle         String
+  stayProperties  Json
+  imageUrl        String
+  notes           String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  trip            Trip     @relation(fields: [tripId], references: [id], onDelete: Cascade)
+
+  @@unique([tripId, dayNumber])
+  @@index([tripId])
+}
+
+model BookingGroup {
+  id               String    @id @default(cuid())
+  groupBookingCode String    @unique
+  tripId           String
+  startDate        DateTime
+  endDate          DateTime
+  groupSize        Int
+  status           String    @default("OPEN")
+  expiresAt        DateTime?
+  closedAt         DateTime?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  trip             Trip      @relation(fields: [tripId], references: [id], onDelete: Restrict)
+  bookings         Booking[]
+
+  @@index([tripId])
+  @@index([status])
+}
+
+model Booking {
+  id                  String        @id @default(cuid())
+  bookingCode         String        @unique
+  groupId             String?
+  tripId              String
+  firstName           String
+  middleName          String?
+  lastName            String
+  email               String
+  phone               String
+  address             String
+  pin                 String
+  dob                 DateTime
+  gender              String
+  emergencyContact    String?
+  consentGiven        Boolean       @default(false)
+  aadhaarFileName     String
+  aadhaarFilePath     String
+  aadhaarMimeType     String
+  aadhaarFileSize     Int
+  bookingType         String
+  peopleCount         Int
+  startDate           DateTime
+  endDate             DateTime
+  bookingAmountCents  Int
+  bookingStatus       String        @default("PENDING")
+  paymentStatus       String        @default("PENDING")
+  cancelledAt         DateTime?
+  cancellationReason  String?
+  refundAmountCents   Int?
+  refundStatus        String?
+  createdAt           DateTime      @default(now())
+  updatedAt           DateTime      @updatedAt
+  group               BookingGroup? @relation(fields: [groupId], references: [id], onDelete: SetNull)
+  trip                Trip          @relation(fields: [tripId], references: [id], onDelete: Restrict)
+  payments            Payment[]
+
+  @@index([tripId])
+  @@index([groupId])
+  @@index([email])
+  @@index([bookingStatus])
+  @@index([paymentStatus])
+  @@index([startDate])
+}
+
+model Payment {
+  id                  String    @id @default(cuid())
+  bookingId           String
+  installmentNumber   Int
+  dueDate             DateTime
+  paidAt              DateTime?
+  simulatedReference  String?
+  paidAmountCents     Int       @default(0)
+  dueAmountCents      Int
+  status              String    @default("PENDING")
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+  booking             Booking   @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+
+  @@unique([bookingId, installmentNumber])
+  @@index([status])
+  @@index([dueDate])
+}
+
+model Expense {
+  id            String   @id @default(cuid())
+  tripId        String
+  category      String
+  amountCents   Int
+  vendor        String?
+  reference     String?
+  notes         String?
+  expenseDate   DateTime
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  trip          Trip     @relation(fields: [tripId], references: [id], onDelete: Cascade)
+
+  @@index([tripId])
+  @@index([category])
+  @@index([expenseDate])
+}
+
+model AuditLog {
+  id          String   @id @default(cuid())
+  actorId     String?
+  actorEmail  String?
+  action      String
+  entityType  String
+  entityId    String?
+  metadata    Json?
+  ip          String?
+  createdAt   DateTime @default(now())
+  actor       User?    @relation(fields: [actorId], references: [id], onDelete: SetNull)
+
+  @@index([actorId])
+  @@index([action])
+  @@index([entityType])
+  @@index([createdAt])
+}
